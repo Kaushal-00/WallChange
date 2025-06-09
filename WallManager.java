@@ -29,7 +29,7 @@ public class WallManager {
         String nextImage = imageList.get(index);
         String fullPath = config.getWallpaperFolder() + "\\" + nextImage;
 
-        String command = "powershell -command \"Add-Type -TypeDefinition \\\"using System.Runtime.InteropServices; " +
+        String psCommand = "powershell -command \"Add-Type -TypeDefinition \\\"using System.Runtime.InteropServices; " +
                 "public class Wallpaper { [DllImport(\\\"user32.dll\\\")] public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni); }\\\"; " +
                 "[Wallpaper]::SystemParametersInfo(20, 0, '" + fullPath + "', 3)\"";
 

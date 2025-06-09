@@ -6,6 +6,7 @@ public class ConfigManager {
     private final String configFile = "config.txt";
     private String wallpaperFolder;
     private int currentIndex;
+    private String command = "wallchange";
 
     public void loadOrCreateConfig() throws IOException {
         File file = new File(configFile);
@@ -29,19 +30,29 @@ public class ConfigManager {
         } else {
 
             BufferedReader br = new BufferedReader(new FileReader(file));
-            wallpaperFolder = br.readLine();
-            currentIndex = Integer.parseInt(br.readLine());
+            String line;
 
+            while ((line = br.readLine()) != null) {
+
+                if (line.startsWith("folder=")) {
+                    wallpaperFolder = line.substring("folder=".length());
+                } else if (line.startsWith("index=")) {
+                    currentIndex = Integer.parseInt(line.substring("index=".length()));
+                } else if (line.startsWith("command=")) {
+                    command = line.substring("command=".length());
+                }
+            }
             br.close();
         }
     }
 
     public void saveConfig() throws IOException {
-
         BufferedWriter bw = new BufferedWriter(new FileWriter(configFile));
-        
-        bw.write(wallpaperFolder + "\n");
-        bw.write(String.valueOf(currentIndex));
+
+        bw.write("folder=" + wallpaperFolder + "\n");
+        bw.write("index=" + currentIndex + "\n");
+        bw.write("command=" + command + "\n");
+
         bw.close();
     }
 
@@ -56,5 +67,9 @@ public class ConfigManager {
     public void updateIndex(int newIndex) throws IOException {
         this.currentIndex = newIndex;
         saveConfig();
+    }
+
+    public String getCommand() {
+        return command;
     }
 }

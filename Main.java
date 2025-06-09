@@ -5,9 +5,11 @@ public class Main {
         
         ConfigManager config = new ConfigManager();
         WallManager changer = new WallManager();
+        CmdManager cmdManager = new CmdManager();
 
         config.loadOrCreateConfig();
         changer.loadImages(config.getWallpaperFolder());
         changer.setNextWallpaper(config);
+        cmdManager.setupCommand(config);
     }
 }

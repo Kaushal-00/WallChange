@@ -33,7 +33,8 @@ public class WallManager {
                 "public class Wallpaper { [DllImport(\\\"user32.dll\\\")] public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni); }\\\"; " +
                 "[Wallpaper]::SystemParametersInfo(20, 0, '" + fullPath + "', 3)\"";
 
-        Runtime.getRuntime().exec(command);
+        ProcessBuilder pb = new ProcessBuilder("powershell", "-command", psCommand);
+        pb.start();
 
         System.out.println("Wallpaper changed to: " + nextImage);
 

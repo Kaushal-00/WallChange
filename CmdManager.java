@@ -12,8 +12,7 @@ public class CmdManager {
             String currentDir = System.getProperty("user.dir");
 
             String commandContent = "@echo off\n"
-                    + "cd /d \"" + currentDir + "\"\n"
-                    + "java Main\n";
+                    + "java -cp \"" + currentDir + "\" Main\n";
 
             String batPath = System.getenv("USERPROFILE") + "\\AppData\\Local\\Microsoft\\WindowsApps\\" + command + ".bat";
 

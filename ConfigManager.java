@@ -7,6 +7,7 @@ public class ConfigManager {
     private String wallpaperFolder;
     private int currentIndex;
     private String command = "wallchange";
+    private String shortcutKey = "CTRL+ALT+W";
 
     public void loadOrCreateConfig() throws IOException {
         File file = new File(configFile);
@@ -33,15 +34,18 @@ public class ConfigManager {
             String line;
 
             while ((line = br.readLine()) != null) {
-
+                
                 if (line.startsWith("folder=")) {
                     wallpaperFolder = line.substring("folder=".length());
                 } else if (line.startsWith("index=")) {
                     currentIndex = Integer.parseInt(line.substring("index=".length()));
                 } else if (line.startsWith("command=")) {
                     command = line.substring("command=".length());
+                } else if (line.startsWith("shortcut=")) {
+                    shortcutKey = line.substring("shortcut=".length());
                 }
             }
+
             br.close();
         }
     }
@@ -52,6 +56,7 @@ public class ConfigManager {
         bw.write("folder=" + wallpaperFolder + "\n");
         bw.write("index=" + currentIndex + "\n");
         bw.write("command=" + command + "\n");
+        bw.write("shortcut=" + shortcutKey + "\n");
 
         bw.close();
     }
@@ -71,5 +76,9 @@ public class ConfigManager {
 
     public String getCommand() {
         return command;
+    }
+
+    public String getShortcutKey() {
+        return shortcutKey;
     }
 }
